@@ -1,6 +1,18 @@
 import React from 'react';
+import { ContractFactory } from 'ethers';
+import contractdet from '../smartcontracts/artifacts/contracts/Paystream.sol/Paystream.json'
 
 const Gate = () => {
+
+    const deployContract=async()=>{
+
+        console.log(contractdet)
+
+        const factory = new ContractFactory(contractdet.abi,contractdet.bytecode);
+        const contract = await factory.deploy();
+        console.log(contract.address);
+
+    }
 
     const [showShare, setShowShare] = React.useState(false);
     const [shares,setShares]=React.useState('2')
@@ -29,7 +41,7 @@ const Gate = () => {
                     {showShare ? <input className='bg-transparent border-[1px] border-white rounded-2xl px-2 py-3' placeholder='Shared Addresses' type={"number"} onChange={(e)=>setShares(e.target.value)} /> : <p>Default 1 Address</p>}
                 </div>
 
-                <button className='w-full h-fit bg-white mt-14 text-slate-900 text-xl py-4 rounded-3xl ' >Create NFT</button>
+                <button className='w-full h-fit bg-white mt-14 text-slate-900 text-xl py-4 rounded-3xl ' onClick={()=>deployContract()} >Create NFT</button>
             </div>
         </div>
      );
