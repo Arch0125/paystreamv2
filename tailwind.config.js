@@ -5,12 +5,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily:{
+        'sans':['Rajdhani',"Kanit","sans-serif"]
+      },
       colors:{
         "bgcolor":"#F2F2F2",
         "secondary":"#9772FB",
         "primary":"#764AF1"
-      }
-    },
+      },
+    }
   },
   plugins: [],
 }
