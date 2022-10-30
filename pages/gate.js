@@ -1,12 +1,15 @@
 import React from 'react';
-import { ContractFactory } from 'ethers';
+import { ContractFactory, ethers, logger } from 'ethers';
 import contractdet from '../smartcontracts/artifacts/contracts/Paystream.sol/Paystream.json'
+import loggerdet from '../smartcontracts/artifacts/contracts/Logger.sol/Logger.json'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useSigner } from 'wagmi';
 
 const Gate = () => {
 
     const {data:signer}=useSigner();
+
+    const loggercontract = new ethers.Contract("0xbf6D3D62544d67Bd8522F696B25aA98001C0fc52",loggerdet.abi,signer);
 
     const deployContract=async()=>{
 
@@ -15,6 +18,7 @@ const Gate = () => {
         const factory = new ContractFactory(contractdet.abi,contractdet.bytecode,signer);
         const contract = await factory.deploy();
         console.log(contract.address);
+        await loggercontract.AddNft(contract.address);
 
     }
 
@@ -24,7 +28,6 @@ const Gate = () => {
     return ( 
         <div className='flex flex-row w-screen h-screen bg-bgcolor text-secondary' >
             <div className='flex flex-col w-[50%] p-[7vmax]' >
-            <ConnectButton/>
                 <p className='text-3xl font-bold '>Create Subscriptions & Licenses</p>
                 <div className='flex flex-col mt-10' >
                     <p className='mb-2 text-xl font-semibold' >Name :</p>

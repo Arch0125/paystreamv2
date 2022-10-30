@@ -12,6 +12,7 @@ import {
 } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
+import Navbar from '../components/Navbar';
 const { chains, provider } = configureChains(
   [chain.polygonMumbai,chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
   [
@@ -35,7 +36,10 @@ function MyApp({ Component, pageProps }) {
   return(
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
-     <Component {...pageProps} />
+        <>
+        <Navbar/>
+        <Component {...pageProps} />
+        </>
      </RainbowKitProvider>
      </WagmiConfig>
      )
