@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ContractFactory, ethers, logger } from 'ethers';
 import contractdet from '../smartcontracts/artifacts/contracts/Paystream.sol/Paystream.json'
 import loggerdet from '../smartcontracts/artifacts/contracts/Logger.sol/Logger.json'
@@ -11,6 +11,19 @@ const Gate = () => {
 
     const loggercontract = new ethers.Contract("0xbf6D3D62544d67Bd8522F696B25aA98001C0fc52",loggerdet.abi,signer);
 
+    const[name,setName]=useState('');
+    const[price,setPrice]=useState('');
+    const[duration,setDuration]=useState('');
+    const [shares,setShares]=React.useState('1')
+
+    var uri={
+        "name":`${name}`,
+        "price":`${price}`,
+        "duration":`${duration}`,
+        "shares":`${shares}`
+    }
+
+
     const deployContract=async()=>{
 
         console.log(contractdet)
@@ -18,12 +31,14 @@ const Gate = () => {
         const factory = new ContractFactory(contractdet.abi,contractdet.bytecode,signer);
         const contract = await factory.deploy();
         console.log(contract.address);
+        var addr = contract.address;
         await loggercontract.AddNft(contract.address);
+        const nftcontract = new ethers.Contract(addr,contractdet.abi,signer);
+        await nftcontract.setURI(JSON.stringify(uri));
 
     }
 
     const [showShare, setShowShare] = React.useState(false);
-    const [shares,setShares]=React.useState('2')
 
     return ( 
         <div className='flex flex-row w-screen h-screen bg-bgcolor text-secondary' >
@@ -31,17 +46,17 @@ const Gate = () => {
                 <p className='text-3xl font-bold '>Create Subscriptions & Licenses</p>
                 <div className='flex flex-col mt-10' >
                     <p className='mb-2 text-xl font-semibold' >Name :</p>
-                    <input className='bg-transparent border-[1px] border-secondary rounded-2xl px-2 py-3' placeholder='Subscription Name' />
+                    <input onChange={(e)=>setName(e.target.value)} className='bg-transparent border-[1px] border-secondary rounded-2xl px-2 py-3' placeholder='Subscription Name' />
                 </div>
 
                 <div className='flex flex-col mt-10' >
                     <p className='mb-2 text-xl font-semibold' >Price :</p>
-                    <input className='bg-transparent border-[1px] border-secondary rounded-2xl px-2 py-3' placeholder='Price' />
+                    <input onChange={(e)=>setPrice(e.target.value)} className='bg-transparent border-[1px] border-secondary rounded-2xl px-2 py-3' placeholder='Price' />
                 </div>
 
                 <div className='flex flex-col mt-10' >
                     <p className='mb-2 text-xl font-semibold' >Membership Duration :</p>
-                    <input className='bg-transparent border-[1px] border-secondary rounded-2xl px-2 py-3' type={"number"} placeholder='Subscription Name' />
+                    <input onChange={(e)=>setDuration(e.target.value)} className='bg-transparent border-[1px] border-secondary rounded-2xl px-2 py-3' type={"number"} placeholder='Subscription Name' />
                 </div>
 
                 <div className='flex flex-col mt-10' >
