@@ -9,7 +9,7 @@ const Gate = () => {
 
     const {data:signer}=useSigner();
 
-    const loggercontract = new ethers.Contract("0xbf6D3D62544d67Bd8522F696B25aA98001C0fc52",loggerdet.abi,signer);
+    const loggercontract = new ethers.Contract("0xc244803e413669f4F0093D01e4523658705DaeDF",loggerdet.abi,signer);
 
     const[name,setName]=useState('');
     const[price,setPrice]=useState('');

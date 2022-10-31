@@ -7,7 +7,7 @@ export default function Home() {
     <div className='flex flex-row w-screen h-screen font-plays bg-bgcolor' > 
       <div className='flex flex-col w-[50%] pl-[5vmax] pt-[7vmax] h-screen' >
         <p className='text-[3vmax] text-primary'>The most advance <br/> On-Chain Subscriptions powered by <br/> Superfluid streams and ERC1155</p>
-        <button className='px-4 py-2 bg-bgcolor border-2 border-primary text-primary w-1/2 mt-14 rounded-2xl text-2xl' >Create a Subscription</button>
+        <a href='/gate' ><button className='px-4 py-2 bg-bgcolor border-2 border-primary text-primary w-1/2 mt-14 rounded-2xl text-2xl' >Create a Subscription</button></a>
         <button className='px-4 py-2 bg-primary  text-bgcolor w-1/2 mt-2 rounded-2xl text-2xl' >Get a Subscription</button>
       </div>
       <div className='flex flex-col w-[50%] overflow-y-hidden' >
